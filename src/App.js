@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import apisearch from './apisearch';
 import checkArrays from './checkArrays';
+import SearchResults from './SearchResults';
 
 class App extends React.Component {
   
@@ -30,7 +31,8 @@ class App extends React.Component {
           this.setState({
             searching: false,
             error: true,
-            errorMessage: e.message
+            errorMessage: e.message,
+            searchResults: []
           });
         });
     }
@@ -50,11 +52,7 @@ class App extends React.Component {
           <label htmlFor="searchBox">Name Search:</label>
           <input type="text" id="searchBox" className="searchTerm" value={this.state.searchTerm} onChange={e => this.updateInputBox(e.target.value)}/>
         </form>
-        <ul className="search-results">
-          {this.state.searchResults.map((result, i) => 
-            <li key={i}>{result}</li>
-            )}
-        </ul>
+        <SearchResults results={this.state.searchResults} />
       </main>
     );
   }
