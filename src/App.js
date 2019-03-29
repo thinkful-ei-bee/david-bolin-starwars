@@ -16,7 +16,7 @@ class App extends React.Component {
     errorMessage: ''
   };
 
-  componentDidMount() {
+  componentDidUpdate() {
     if (this.state.searching) {
       //make sure results match from api
       apisearch(this.state.searchType, this.state.searchTerm)
@@ -47,7 +47,13 @@ class App extends React.Component {
         });
     }
   }
-        
+
+  submitSearch = () => {
+    this.setState({
+      searching: true
+    });
+  }
+  
   updateInputBox = (str) => {
     this.setState({
       searchTerm: str
@@ -55,16 +61,26 @@ class App extends React.Component {
   };
 
   render() {
+    let searchingMessage;
+    if (this.state.searching) {
+      searchingMessage = (
+        <p>Currently searching...</p>
+      )}
+
     return (
       <main className='App'>
         <h1>Star Wars Search</h1>
         <form>
           <label htmlFor="searchBox">Name Search:</label>
           <input type="text" id="searchBox" className="searchTerm" value={this.state.searchTerm} onChange={e => this.updateInputBox(e.target.value)}/>
-          <button>Search</button>
+          <button class="search-button" onClick={(e) => {e.preventDefault(); this.submitSearch()}}>Search</button>
         </form>
-        <ErrorMessage message={this.state.errorMessage} />
-        <SearchResults results={this.state.searchResults} />
+        <section className="search-results">
+          <ErrorMessage message={this.state.errorMessage} />
+          {searchingMessage}
+          <SearchResults results={this.state.searchResults} />
+        </section>
+        
       </main>
     );
   }
