@@ -8,6 +8,9 @@ function apisearch(type, term) {
       }
     })
     .then(res => res.results.map(result => result.name))
+    .catch((e) => {
+      throw new Error(e);
+    })
   );
 }
 
