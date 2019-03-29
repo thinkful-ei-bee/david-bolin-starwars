@@ -1,17 +1,46 @@
 import React from 'react';
 import './App.css';
+import apisearch from './apisearch';
+import checkArrays from './checkArrays';
 
 class App extends React.Component {
   
   state = {
-    searchTerm: ''
-  }
+    searchTerm: 'Skywalker',
+    searchType: 'people',
+    searchResults: [],
+    searching: true,
+    error: false,
+    errorMessage: ''
+  };
 
+  componentDidMount() {
+    if (this.state.searching) {
+      //make sure results match from api
+      apisearch(this.state.searchType, this.state.searchTerm)
+        .then(res => {
+          if (!checkArrays(res, this.state.searchResults)) {
+            this.setState({
+              searching: false,
+              searchResults: res,
+              error: false
+            });
+          }})
+        .catch(e => {
+          this.setState({
+            searching: false,
+            error: true,
+            errorMessage: e.message
+          });
+        });
+    }
+  }
+        
   updateInputBox = (str) => {
     this.setState({
       searchTerm: str
     });
-  }
+  };
 
   render() {
     return (
@@ -21,9 +50,11 @@ class App extends React.Component {
           <label htmlFor="searchBox">Name Search:</label>
           <input type="text" id="searchBox" className="searchTerm" value={this.state.searchTerm} onChange={e => this.updateInputBox(e.target.value)}/>
         </form>
-        <section className="search-results">
-
-        </section>
+        <ul className="search-results">
+          {this.state.searchResults.map((result, i) => 
+            <li key={i}>{result}</li>
+            )}
+        </ul>
       </main>
     );
   }
