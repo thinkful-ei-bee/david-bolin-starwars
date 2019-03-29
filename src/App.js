@@ -3,14 +3,15 @@ import './App.css';
 import apisearch from './apisearch';
 import checkArrays from './checkArrays';
 import SearchResults from './SearchResults';
+import ErrorMessage from './ErrorMessage';
 
 class App extends React.Component {
   
   state = {
-    searchTerm: 'Skywalker',
+    searchTerm: '',
     searchType: 'people',
     searchResults: [],
-    searching: true,
+    searching: false,
     error: false,
     errorMessage: ''
   };
@@ -24,9 +25,18 @@ class App extends React.Component {
             this.setState({
               searching: false,
               searchResults: res,
-              error: false
+              error: false,
+              errorMessage: ''
             });
-          }})
+          } else {
+            this.setState({
+              searching: false,
+              error: false,
+              errorMessage: ''
+            });
+          }
+        
+        })
         .catch(e => {
           this.setState({
             searching: false,
@@ -51,7 +61,9 @@ class App extends React.Component {
         <form>
           <label htmlFor="searchBox">Name Search:</label>
           <input type="text" id="searchBox" className="searchTerm" value={this.state.searchTerm} onChange={e => this.updateInputBox(e.target.value)}/>
+          <button>Search</button>
         </form>
+        <ErrorMessage message={this.state.errorMessage} />
         <SearchResults results={this.state.searchResults} />
       </main>
     );
