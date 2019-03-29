@@ -17,7 +17,7 @@ class App extends React.Component {
       <main className='App'>
         <h1>Star Wars Search</h1>
         <form>
-          <label htmlFor="searchBox">Name:</label>
+          <label htmlFor="searchBox">Name Search:</label>
           <input type="text" id="searchBox" className="searchTerm" value={this.state.searchTerm} onChange={e => this.updateInputBox(e.target.value)}/>
         </form>
       </main>
