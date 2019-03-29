@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
+main {
+  background-color: skyblue;
+}
+
+.search-results {
+  background-color: white;
+  border: 1px solid black;
+  margin-top: 50px;
+  min-width: 100%;
+  min-height: 200px;
+}

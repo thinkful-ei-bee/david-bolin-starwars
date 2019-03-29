@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 
 class App extends React.Component {
   
@@ -20,6 +21,9 @@ class App extends React.Component {
           <label htmlFor="searchBox">Name Search:</label>
           <input type="text" id="searchBox" className="searchTerm" value={this.state.searchTerm} onChange={e => this.updateInputBox(e.target.value)}/>
         </form>
+        <section className="search-results">
+
+        </section>
       </main>
     );
   }
