@@ -1,6 +1,4 @@
-#
-
-Star Wars Search
+# Star Wars Search
 
 An app to search the Star Wars API
 
